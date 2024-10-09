@@ -12,5 +12,9 @@ Et ole kirjautunut sisään.<br>
 <p>
 <a href="/login">Kirjaudu sisään</a>
 {% endif %}
+<p>
+{% if session.user_role=="oppilas" %}
+<a href="/courses"> Kurssit</a>
+{% endif %}
 
 {% endblock %}

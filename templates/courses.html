@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Kurssit</h2>
+
+<a href="/">Palaa takaisin</a>
+<p>
+{% if session.user_role=="oppilas" %}
+
+{% for course in list %}
+<div class="button-container">
+<a href="/course/{{ course[0] }}">{{ course[1] }}</a>
+
+<form action="/join" method="post">
+<input type="hidden" name="user_id" value="{{ session.user_id }}">
+<input type="hidden" name="course_id" value="{{ course[0] }}">
+<input type="submit" value="Liity">
+</form>
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}
