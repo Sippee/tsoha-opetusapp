@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 import users
 import courses
 
@@ -13,21 +13,20 @@ def answer():
         user_id = request.form["user_id"]
         assignment_id = request.form["assignment_id"]
         correct_answer = request.form["answer"]
-        try:
-            courses.store_answer(user_id, assignment_id, correct_answer)
-            return redirect("/assignment/"+assignment_id)
-        except:
-            return redirect("/assignment/"+assignment_id)
+        courses.store_answer(user_id, assignment_id, correct_answer)
+        return redirect("/assignment/"+assignment_id)
 
 @app.route("/course/<int:course_id>")
 def show_course(course_id):
     name = courses.get_coursename(course_id)
     materials = courses.get_materialsbycourse(course_id)
     assignments = courses.get_assignmentsbycourse(course_id)
+    completed_assignments = courses.get_completed_assignments(session['user_id'], course_id)
     return render_template("course.html", course_id=course_id,
                            course_name=name,
                            material_list=materials,
-                           assignment_list=assignments)
+                           assignment_list=assignments,
+                           completed_list=completed_assignments)
 
 @app.route("/material/<int:material_id>")
 def show_material(material_id):

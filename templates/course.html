@@ -25,6 +25,14 @@
 
 {% endfor %}
 
+<h3>Tehdyt tehtavat</h3>
+
+{% for completed in completed_list %}
+
+<a href="/assignment/{{ completed[0] }}">{{ completed[1] }}</a>
+
+{% endfor %}
+
 {% endif %}
 
 {% endblock %}

@@ -45,13 +45,26 @@ def get_assignment(assignment_id):
 
 def store_answer(user_id, assignment_id, correct_answer):
     sql1 = """SELECT answer FROM assignments a
-    WHERE a.id=:assignment_id"""
+    WHERE id=:assignment_id"""
     result = db.session.execute(text(sql1),{"assignment_id":assignment_id}).fetchone()
-    if result[0]==correct_answer:
-        sql2 = """INSERT INTO answers (user_id, assignment_id, answer) 
-        VALUES (:user_id, :assignment_id, :answer)"""
-        db.session.execute(text(sql2),{"user_id":user_id, "assignment_id":assignment_id, "answer":correct_answer})
-        db.session.commit()
-        return True
+
+    sql2 = """SELECT user_id, assignment_id FROM answers
+    WHERE user_id=:user_id and assignment_id=:assignment_id"""
+    result2 = db.session.execute(text(sql2),{"user_id":user_id,"assignment_id":assignment_id}).fetchone()
+
+    if result2==None or result2[0]!=int(user_id) and result2[1]!=int(assignment_id):
+        if result[0]==correct_answer:
+            sql3 = """INSERT INTO answers (user_id, assignment_id, answer) 
+            VALUES (:user_id, :assignment_id, :answer)"""
+            db.session.execute(text(sql3),{"user_id":user_id, "assignment_id":assignment_id, "answer":correct_answer})
+            db.session.commit()
+            return True
 
     return False
+
+def get_completed_assignments(user_id, course_id):
+    sql1 = """SELECT a.id, a.name FROM assignments a, answers b
+    WHERE a.id=b.assignment_id and a.answer=b.answer and
+    a.course_id=:course_id and b.user_id=:user_id"""
+    result = db.session.execute(text(sql1),{"course_id":course_id,"user_id":user_id}).fetchall()
+    return result
