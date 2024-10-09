@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>{{ assignment_name }}</h2>
+
+<a href="/course/{{ course_id }}">Palaa takaisin</a>
+<p>
+{% if session.user_role=="oppilas" %}
+
+{{ assignment_text }}
+
+<div class="button-container">
+<form action="/answer" method="post">
+<input type="hidden" name="user_id" value="{{ session.user_id }}">
+<input type="hidden" name="assignment_id" value="{{ assignment_id }}">
+<input type="text" name="answer">
+<input type="submit" value="Vastaa">
+</form>
+</div>
+
+{% endif %}
+
+{% endblock %}

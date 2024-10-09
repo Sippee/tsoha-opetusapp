@@ -14,3 +14,25 @@ CREATE TABLE participants (
     user_id INTEGER REFERENCES users,
     course_id INTEGER REFERENCES courses
 );
+
+CREATE TABLE materials (
+    id SERIAL PRIMARY KEY,
+    course_id INTEGER REFERENCES courses,
+    name TEXT,
+    material TEXT
+);
+
+CREATE TABLE assignments (
+    id SERIAL PRIMARY KEY,
+    course_id INTEGER REFERENCES courses,
+    name TEXT,
+    assignment TEXT,
+    answer TEXT
+);
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    assignment_id INTEGER REFERENCES assignments,
+    answer TEXT
+);

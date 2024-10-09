@@ -4,4 +4,27 @@
 
 <a href="/">Palaa takaisin</a>
 
+<h3>Materiaalit</h3>
+
+<p>
+
+{% if session.user_role=="oppilas" %}
+
+{% for material in material_list %}
+
+<a href="/material/{{ material[0] }}">{{ material[1] }}</a>
+
+{% endfor %}
+
+<p>
+
+<h3>Tehtavat</h3>
+{% for assignment in assignment_list %}
+
+<a href="/assignment/{{ assignment[0] }}">{{ assignment[1] }}</a>
+
+{% endfor %}
+
+{% endif %}
+
 {% endblock %}
