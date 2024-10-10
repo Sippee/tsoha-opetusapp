@@ -8,12 +8,12 @@
 
 <p>
 
-{% if session.user_role=="oppilas" %}
+{% if session.user_id %}
 
 {% for material in material_list %}
 
 <a href="/material/{{ material[0] }}">{{ material[1] }}</a>
-
+<br>
 {% endfor %}
 
 <p>
@@ -22,15 +22,19 @@
 {% for assignment in assignment_list %}
 
 <a href="/assignment/{{ assignment[0] }}">{{ assignment[1] }}</a>
-
+<br>
 {% endfor %}
+
+{% endif %}
+
+{% if session.user_role=="oppilas" %}
 
 <h3>Tehdyt tehtavat</h3>
 
 {% for completed in completed_list %}
 
 <a href="/assignment/{{ completed[0] }}">{{ completed[1] }}</a>
-
+<br>
 {% endfor %}
 
 {% endif %}

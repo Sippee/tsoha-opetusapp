@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect
 import users
 import courses
 
@@ -7,10 +7,47 @@ import courses
 def index():
     return render_template("index.html")   
 
+@app.route("/changecourse", methods=["GET", "POST"])
+def changecourse():
+    users.require_role("opettaja")
+
+    if request.method == "GET":
+        return render_template("changecourse.html")
+
+    if request.method == "POST":
+        oldname = request.form["oldname"]
+        newname = request.form["newname"]
+        courses.change_course(oldname, newname)
+        return redirect("/courses")
+
+@app.route("/addcourse", methods=["GET", "POST"])
+def addcourse():
+    users.require_role("opettaja")
+
+    if request.method == "GET":
+        return render_template("addcourse.html")
+
+    if request.method == "POST":
+        name = request.form["name"]
+        courses.add_course(name)
+        return redirect("/courses")
+
+@app.route("/removecourse", methods=["GET", "POST"])
+def removecourse():
+    users.require_role("opettaja")
+
+    if request.method == "GET":
+        return render_template("removecourse.html")
+
+    if request.method == "POST":
+        name = request.form["name"]
+        courses.remove_course(name)
+        return redirect("/courses")
+
 @app.route("/answer", methods=["POST"])
 def answer():
     if request.method == "POST":
-        user_id = request.form["user_id"]
+        user_id = users.user_id()
         assignment_id = request.form["assignment_id"]
         correct_answer = request.form["answer"]
         courses.store_answer(user_id, assignment_id, correct_answer)
@@ -21,7 +58,7 @@ def show_course(course_id):
     name = courses.get_coursename(course_id)
     materials = courses.get_materialsbycourse(course_id)
     assignments = courses.get_assignmentsbycourse(course_id)
-    completed_assignments = courses.get_completed_assignments(session['user_id'], course_id)
+    completed_assignments = courses.get_completed_assignments(users.user_id(), course_id)
     return render_template("course.html", course_id=course_id,
                            course_name=name,
                            material_list=materials,
@@ -48,7 +85,7 @@ def show_assignment(assignment_id):
 @app.route("/join", methods=["POST"])
 def joincourse():
     if request.method == "POST":
-        user_id = request.form["user_id"]
+        user_id = users.user_id()
         course_id = request.form["course_id"]
         try:
             courses.join_course(user_id, course_id)

@@ -5,7 +5,7 @@
 
 <a href="/course/{{ course_id }}">Palaa takaisin</a>
 <p>
-{% if session.user_role=="oppilas" %}
+{% if session.user_id %}
 
 {{ material_text }}
 

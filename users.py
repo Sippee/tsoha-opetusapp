@@ -1,5 +1,5 @@
 from db import db
-from flask import session
+from flask import session, abort
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -34,3 +34,10 @@ def register(name, password, role):
 
 def logout():
     session.clear()
+
+def user_id():
+    return session.get("user_id", 0)
+
+def require_role(role):
+    if role != session.get("user_role", 0):
+        abort(403)

@@ -1,6 +1,41 @@
 from db import db
 from sqlalchemy.sql import text
 
+def change_course(oldname, newname):
+    sql1 = """SELECT id, name FROM courses WHERE name=:name"""
+    result = db.session.execute(text(sql1),{"name":oldname}).fetchone()
+    if result and result[1]==oldname:
+        sql2 = """UPDATE courses SET name=:name WHERE id=:id"""
+        db.session.execute(text(sql2),{"name":newname, "id":result[0]})
+        db.session.commit()
+        return True
+
+    return False
+
+def add_course(name):
+    sql1 = """SELECT name FROM courses WHERE name=:name"""
+    result = db.session.execute(text(sql1),{"name":name}).fetchone()
+    if result==None or result[0]!=name:
+        sql2 = """INSERT INTO courses (name) 
+        VALUES (:name)"""
+        db.session.execute(text(sql2),{"name":name})
+        db.session.commit()
+        return True
+
+    return False
+
+def remove_course(name):
+    sql1 = """SELECT name FROM courses WHERE name=:name"""
+    result = db.session.execute(text(sql1),{"name":name}).fetchone()
+
+    if result and result[0]==name:
+        sql2 = """DELETE FROM courses WHERE name=:name"""
+        db.session.execute(text(sql2),{"name":name})
+        db.session.commit()
+        return True
+
+    return False
+
 def get_courses():
     sql = """SELECT id, name FROM courses"""
     return db.session.execute(text(sql)).fetchall()

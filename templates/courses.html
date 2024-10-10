@@ -3,21 +3,34 @@
 
 <h2>Kurssit</h2>
 
-<a href="/">Palaa takaisin</a>
-<p>
-{% if session.user_role=="oppilas" %}
+<a href="/">Palaa takaisin</a><br>
 
+{% if session.user_role=="oppilas" %}
+<p>
 {% for course in list %}
 <div class="button-container">
 <a href="/course/{{ course[0] }}">{{ course[1] }}</a>
 
 <form action="/join" method="post">
-<input type="hidden" name="user_id" value="{{ session.user_id }}">
 <input type="hidden" name="course_id" value="{{ course[0] }}">
 <input type="submit" value="Liity">
 </form>
 </div>
+<br>
+{% endfor %}
 
+{% endif %}
+
+{% if session.user_role=="opettaja" %}
+
+<a href="/addcourse"> Luo uusi kurssi</a> <br>
+<a href="/removecourse"> Poista kurssi</a> <br>
+<a href="/changecourse"> Muokkaa kurssia</a> <br>
+<p>
+
+{% for course in list %}
+<a href="/course/{{ course[0] }}">{{ course[1] }}</a>
+<br>
 {% endfor %}
 
 {% endif %}

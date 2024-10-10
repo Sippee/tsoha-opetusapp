@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Poista kurssi</h2>
+
+<a href="/courses">Palaa takaisin</a>
+
+<p>Anna poistettavan kurssin nimi:
+<div class="button-container">
+<form action="/removecourse" method="post">
+<input type="text" name="name">
+<input type="submit" value="Poista">
+</form>
+</div>
+
+{% endblock %}
