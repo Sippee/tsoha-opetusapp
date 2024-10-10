@@ -4,11 +4,13 @@
 <h2>Kirjaudu sisään</h2>
 
 <form action="/login" method="post">
-Tunnus: <br><input type="text" name="username">
+Tunnus: <br>
+<input type="text" name="username" class="form-control">
 <br>
-Salasana: <br><input type="password" name="password"> 
+Salasana: <br>
+<input type="password" name="password" class="form-control"> 
 <br>
-<input type="submit" value="Kirjaudu"> <p style="color:red;">{{ message }}</p>
+<input type="submit" value="Kirjaudu" class="button-1"> <p style="color:red;">{{ message }}</p>
 </form>
 <a href="/register">Rekisteröidy</a>
 <p>

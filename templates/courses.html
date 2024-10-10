@@ -13,7 +13,7 @@
 
 <form action="/join" method="post">
 <input type="hidden" name="course_id" value="{{ course[0] }}">
-<input type="submit" value="Liity">
+<input type="submit" value="Liity" class="button-2">
 </form>
 </div>
 <br>
@@ -32,7 +32,7 @@
 <h3>Kurssit</h3>
 
 {% for course in list %}
-<a href="/course/{{ course[0] }}">{{ course[1] }}</a> <br>
+<a href="/course/{{ course[0] }}">{{ course[1] }}</a><p>
 {% endfor %}
 
 {% endif %}

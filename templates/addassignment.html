@@ -3,32 +3,31 @@
 
 <h2>Luo uusi tehtava</h2>
 
-<a href="/courses">Palaa takaisin</a>
-
+<a href="/courses">Palaa takaisin</a> <p>
 
 <form action="/addassignment" method="post">
 Kurssin nimi:
-<input type="text" name="coursename">
+<input type="text" name="coursename" class="form-control">
 <p>Tehtavan nimi:
-<input type="text" name="name">
+<input type="text" name="name" class="form-control">
 <p>Tehtavananto:
-<input type="text" name="assignment">
+<input type="text" name="assignment" class="form-control">
 <p>Oikea vastaus:
-<input type="text" name="answer">
+<input type="text" name="answer" class="form-control">
 
 <p>Monivalinta:
 <input type="checkbox" name="multichoice" value="1" id="check" onclick="checkbox_checked()">
 <input type="hidden" name="multichoice" value="0">
 <p id="checked" style="display:none">
 Vaihtoehto 1:
-<input type="text" name="option1">
+<input type="text" name="option1" class="form-control">
 <br>Vaihtoehto 2:
-<input type="text" name="option2">
+<input type="text" name="option2" class="form-control">
 <br>Vaihtoehto 3:
-<input type="text" name="option3">
+<input type="text" name="option3" class="form-control">
 </p>
 <p>
-<input type="submit" value="Luo">
+<input type="submit" value="Luo" class="button-1">
 </form>
 
 <script>

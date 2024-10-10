@@ -9,35 +9,38 @@
 <h3>Tehtavananto</h3>
 {{ assignment_text }}
 
+{% if session.user_role=="opettaja" %}
+
+<h4>Oikea vastaus:</h4>
+{{ assignment_answer }}
+{% endif %}
+
 {% if session.user_role=="oppilas" %}
 
 {% if assignment_multichoice==0 %}
-
-<div class="button-container">
+<p>
 <form action="/answer" method="post">
 <input type="hidden" name="assignment_id" value="{{ assignment_id }}">
-<input type="text" name="answer">
-<input type="submit" value="Vastaa">
+<h4>Anna vastaus:</h4>
+<input type="text" name="answer" class="form-control">
+<input type="submit" value="Vastaa" class="button-1">
 </form>
-</div>
 
 {% endif %}
 
 {% if assignment_multichoice==1 %}
-
-<div class="button-container">
+<p>
 <form action="/answer" method="post">
 <input type="hidden" name="assignment_id" value="{{ assignment_id }}">
-
-<select name="answer" multiple>
+<h4>Valitse oikea vaihtoehto:</h4>
+<select name="answer" multiple class="select-1">
     <option value="{{assignment_option1}}">{{ assignment_option1 }}</option>
     <option value="{{assignment_option2}}">{{ assignment_option2 }}</option>
     <option value="{{assignment_option3}}">{{ assignment_option3 }}</option>
 </select>
-
-<input type="submit" value="Vastaa">
+<p>
+<input type="submit" value="Vastaa" class="button-1">
 </form>
-</div>
 
 {% endif %}
 

@@ -3,14 +3,12 @@
 
 <h2>Poista kurssi</h2>
 
-<a href="/courses">Palaa takaisin</a>
+<a href="/courses">Palaa takaisin</a> <p>
 
-<p>Anna poistettavan kurssin nimi:
-<div class="button-container">
+Anna poistettavan kurssin nimi:
 <form action="/removecourse" method="post">
-<input type="text" name="name">
-<input type="submit" value="Poista">
+<input type="text" name="name" class="form-control">
+<input type="submit" value="Poista" class="button-1">
 </form>
-</div>
 
 {% endblock %}
