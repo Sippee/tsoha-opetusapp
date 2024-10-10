@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Oppilas: {{ username[0] }}</h2>
+
+<a href="/course/{{ course_id }}">Palaa takaisin</a>
+
+{% if session.user_role=="opettaja" %}
+
+<h3>Tehdyt tehtavat</h3>
+
+{% for assignment in stats_list %}
+
+{{ assignment[0] }}<br>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

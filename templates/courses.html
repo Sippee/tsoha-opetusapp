@@ -23,14 +23,16 @@
 
 {% if session.user_role=="opettaja" %}
 
+<h3>Opettajan tyokalut</h3>
+
 <a href="/addcourse"> Luo uusi kurssi</a> <br>
 <a href="/removecourse"> Poista kurssi</a> <br>
 <a href="/changecourse"> Muokkaa kurssia</a> <br>
-<p>
+
+<h3>Kurssit</h3>
 
 {% for course in list %}
-<a href="/course/{{ course[0] }}">{{ course[1] }}</a>
-<br>
+<a href="/course/{{ course[0] }}">{{ course[1] }}</a> <br>
 {% endfor %}
 
 {% endif %}

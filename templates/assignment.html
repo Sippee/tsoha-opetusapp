@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h2>{{ assignment_name }}</h2>
+<h2>Tehtava: {{ assignment_name }}</h2>
 
 <a href="/course/{{ course_id }}">Palaa takaisin</a>
 <p>
-{% if session.user_role=="oppilas" %}
 
+<h3>Tehtavananto</h3>
 {{ assignment_text }}
+
+{% if session.user_role=="oppilas" %}
 
 {% if assignment_multichoice==0 %}
 

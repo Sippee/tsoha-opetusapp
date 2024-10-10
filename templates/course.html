@@ -1,13 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>{{ course_name[0] }}</h2>
+<h2>Kurssi: {{ course_name[0] }}</h2>
 
-<a href="/">Palaa takaisin</a>
+<a href="/courses">Palaa takaisin</a>
 
 {% if session.user_role=="opettaja" %}
-<br>
+
+<h3>Opettajan tyokalut</h3>
+
 <a href="/addmaterial">Luo materiaalia</a><br>
 <a href="/addassignment">Luo tehtava</a>
+
+<h3>Oppilaat</h3>
+
+{% for participant in participant_list %}
+
+<a href="/stats/{{course_id}}/{{participant[0]}}">{{ participant[1] }}</a><br>
+
+{% endfor %}
 
 {% endif %}
 

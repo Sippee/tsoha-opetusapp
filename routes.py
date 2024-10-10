@@ -7,6 +7,17 @@ import courses
 def index():
     return render_template("index.html")   
 
+@app.route("/stats/<int:course_id>/<int:user_id>")
+def showparticipantstats(course_id, user_id):
+    users.require_role("opettaja")
+    username = courses.get_username_by_id(user_id)
+    stats_list = courses.get_participant_stats(user_id, course_id)
+    return render_template("/stats.html",
+                           course_id=course_id,
+                           user_id=user_id,
+                           username=username,
+                           stats_list=stats_list)
+
 @app.route("/addassignment", methods=["GET", "POST"])
 def addassignment():
     users.require_role("opettaja")
@@ -100,11 +111,13 @@ def show_course(course_id):
     materials = courses.get_materialsbycourse(course_id)
     assignments = courses.get_assignmentsbycourse(course_id)
     completed_assignments = courses.get_completed_assignments(users.user_id(), course_id)
+    participants = courses.get_participants(course_id)
     return render_template("course.html", course_id=course_id,
                            course_name=name,
                            material_list=materials,
                            assignment_list=assignments,
-                           completed_list=completed_assignments)
+                           completed_list=completed_assignments,
+                           participant_list=participants)
 
 @app.route("/material/<int:material_id>")
 def show_material(material_id):

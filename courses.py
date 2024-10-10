@@ -1,6 +1,17 @@
 from db import db
 from sqlalchemy.sql import text
 
+def get_participant_stats(user_id, course_id):
+    sql = """SELECT a.name FROM assignments a, answers b
+    WHERE a.course_id=:course_id and b.user_id=:user_id
+    and a.id=b.assignment_id"""
+    return db.session.execute(text(sql),{"user_id":user_id, "course_id":course_id}).fetchall()
+
+def get_participants(course_id):
+    sql = """SELECT u.id, u.name FROM users u, courses c,
+    participants p WHERE u.id=p.user_id and c.id=p.course_id and c.id=:course_id"""
+    return db.session.execute(text(sql),{"course_id":course_id}).fetchall()
+
 def add_assignment(course_name, name, assignment, answer, 
                    multichoice, option1, option2, option3):
     sql = """INSERT INTO assignments (course_id, name, assignment,
@@ -98,6 +109,10 @@ def get_assignment(assignment_id):
     option1, option2, option3 FROM assignments a WHERE a.id=:assignment_id"""
     result = db.session.execute(text(sql),{"assignment_id":assignment_id}).fetchone()
     return result
+
+def get_username_by_id(user_id):
+    sql = """SELECT name FROM users WHERE id=:user_id"""
+    return db.session.execute(text(sql),{"user_id":user_id}).fetchone()
 
 def store_answer(user_id, assignment_id, correct_answer):
     sql1 = """SELECT answer FROM assignments a
