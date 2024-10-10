@@ -18,14 +18,14 @@ CREATE TABLE participants (
 CREATE TABLE materials (
     id SERIAL PRIMARY KEY,
     course_id INTEGER REFERENCES courses,
-    name TEXT,
+    name TEXT UNIQUE,
     material TEXT
 );
 
 CREATE TABLE assignments (
     id SERIAL PRIMARY KEY,
     course_id INTEGER REFERENCES courses,
-    name TEXT,
+    name TEXT UNIQUE,
     assignment TEXT,
     answer TEXT
 );

@@ -7,6 +7,23 @@ import courses
 def index():
     return render_template("index.html")   
 
+@app.route("/addmaterial", methods=["GET", "POST"])
+def addmaterial():
+    users.require_role("opettaja")
+
+    if request.method == "GET":
+        return render_template("addmaterial.html")
+
+    if request.method == "POST":
+        coursename = request.form["coursename"]
+        materialname = request.form["materialname"]
+        material = request.form["material"]
+        try:
+            courses.add_material(coursename, materialname, material)
+            return redirect("/courses")
+        except:
+            return redirect("/courses")
+
 @app.route("/changecourse", methods=["GET", "POST"])
 def changecourse():
     users.require_role("opettaja")

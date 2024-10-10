@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Luo uutta materiaalia</h2>
+
+<a href="/courses">Palaa takaisin</a>
+
+
+<form action="/addmaterial" method="post">
+Kurssin nimi:
+<input type="text" name="coursename">
+<p>Materiaalin nimi:
+<input type="text" name="materialname">
+<p>Materiaali:<br>
+<textarea name="material">
+</textarea>
+<br>
+<input type="submit" value="Luo">
+</form>
+
+
+{% endblock %}

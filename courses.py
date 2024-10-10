@@ -1,6 +1,12 @@
 from db import db
 from sqlalchemy.sql import text
 
+def add_material(course_name, name, material):
+    sql = """INSERT INTO materials (course_id, name, material)
+    VALUES ((SELECT id FROM courses WHERE name=:course_name), :name, :material)"""
+    db.session.execute(text(sql),{"course_name":course_name, "name":name, "material":material})
+    db.session.commit()
+
 def change_course(oldname, newname):
     sql1 = """SELECT id, name FROM courses WHERE name=:name"""
     result = db.session.execute(text(sql1),{"name":oldname}).fetchone()

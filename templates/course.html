@@ -4,6 +4,12 @@
 
 <a href="/">Palaa takaisin</a>
 
+{% if session.user_role=="opettaja" %}
+
+<a href="/addmaterial">Luo lisää materiaalia</a><br>
+
+{% endif %}
+
 <h3>Materiaalit</h3>
 
 <p>
