@@ -94,7 +94,8 @@ def get_material(material_id):
     return result
 
 def get_assignment(assignment_id):
-    sql = """SELECT course_id, name, assignment, answer FROM assignments a WHERE a.id=:assignment_id"""
+    sql = """SELECT course_id, name, assignment, answer, multichoice,
+    option1, option2, option3 FROM assignments a WHERE a.id=:assignment_id"""
     result = db.session.execute(text(sql),{"assignment_id":assignment_id}).fetchone()
     return result
 

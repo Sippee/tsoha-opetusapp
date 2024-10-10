@@ -121,7 +121,11 @@ def show_assignment(assignment_id):
                            course_id=assignment[0],
                            assignment_name=assignment[1],
                            assignment_text=assignment[2],
-                           assignment_answer=assignment[3])
+                           assignment_answer=assignment[3],
+                           assignment_multichoice=assignment[4],
+                           assignment_option1=assignment[5],
+                           assignment_option2=assignment[6],
+                           assignment_option3=assignment[7])
 
 @app.route("/join", methods=["POST"])
 def joincourse():

@@ -9,6 +9,8 @@
 
 {{ assignment_text }}
 
+{% if assignment_multichoice==0 %}
+
 <div class="button-container">
 <form action="/answer" method="post">
 <input type="hidden" name="assignment_id" value="{{ assignment_id }}">
@@ -16,6 +18,26 @@
 <input type="submit" value="Vastaa">
 </form>
 </div>
+
+{% endif %}
+
+{% if assignment_multichoice==1 %}
+
+<div class="button-container">
+<form action="/answer" method="post">
+<input type="hidden" name="assignment_id" value="{{ assignment_id }}">
+
+<select name="answer" multiple>
+    <option value="{{assignment_option1}}">{{ assignment_option1 }}</option>
+    <option value="{{assignment_option2}}">{{ assignment_option2 }}</option>
+    <option value="{{assignment_option3}}">{{ assignment_option3 }}</option>
+</select>
+
+<input type="submit" value="Vastaa">
+</form>
+</div>
+
+{% endif %}
 
 {% endif %}
 
