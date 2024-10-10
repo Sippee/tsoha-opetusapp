@@ -7,6 +7,30 @@ import courses
 def index():
     return render_template("index.html")   
 
+@app.route("/addassignment", methods=["GET", "POST"])
+def addassignment():
+    users.require_role("opettaja")
+
+    if request.method == "GET":
+        return render_template("addassignment.html")
+
+    if request.method == "POST":
+        coursename = request.form["coursename"]
+        name = request.form["name"]
+        assignment = request.form["assignment"]
+        answer = request.form["answer"]
+        multichoice = request.form["multichoice"]
+        option1 = request.form["option1"]
+        option2 = request.form["option2"]
+        option3 = request.form["option3"]
+        try:
+            courses.add_assignment(coursename, name, assignment,
+                                    answer, multichoice,
+                                    option1, option2, option3)
+            return redirect("/courses")
+        except:
+            return redirect("/courses")
+
 @app.route("/addmaterial", methods=["GET", "POST"])
 def addmaterial():
     users.require_role("opettaja")

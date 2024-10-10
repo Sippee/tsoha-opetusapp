@@ -1,6 +1,20 @@
 from db import db
 from sqlalchemy.sql import text
 
+def add_assignment(course_name, name, assignment, answer, 
+                   multichoice, option1, option2, option3):
+    sql = """INSERT INTO assignments (course_id, name, assignment,
+    answer, multichoice, option1, option2, option3) VALUES
+    ((SELECT id FROM courses WHERE name=:course_name),
+    :name, :assignment, :answer, :multichoice,
+    :option1, :option2, :option3)"""
+    db.session.execute(text(sql),{"course_name":course_name,
+                                  "name":name, "assignment":assignment,
+                                  "answer":answer, "multichoice":multichoice,
+                                  "option1":option1, "option2":option2,
+                                  "option3":option3})
+    db.session.commit()
+
 def add_material(course_name, name, material):
     sql = """INSERT INTO materials (course_id, name, material)
     VALUES ((SELECT id FROM courses WHERE name=:course_name), :name, :material)"""

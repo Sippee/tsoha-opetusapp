@@ -27,7 +27,11 @@ CREATE TABLE assignments (
     course_id INTEGER REFERENCES courses,
     name TEXT UNIQUE,
     assignment TEXT,
-    answer TEXT
+    answer TEXT,
+    multichoice INTEGER,
+    option1 TEXT,
+    option2 TEXT,
+    option3 TEXT
 );
 
 CREATE TABLE answers (
