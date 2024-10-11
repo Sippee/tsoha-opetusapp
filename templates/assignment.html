@@ -22,7 +22,7 @@
 <form action="/answer" method="post">
 <input type="hidden" name="assignment_id" value="{{ assignment_id }}">
 <h4>Anna vastaus:</h4>
-<input type="text" name="answer" class="form-control">
+<input type="text" name="answer" class="form-control" minlength="1" maxlength="50">
 <input type="submit" value="Vastaa" class="button-1">
 </form>
 

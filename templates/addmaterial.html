@@ -8,12 +8,12 @@
 
 <form action="/addmaterial" method="post">
 Kurssin nimi:
-<input type="text" name="coursename" class="form-control">
+<input type="text" name="coursename" class="form-control" minlength="1" maxlength="50">
 <p>Materiaalin nimi:
-<input type="text" name="materialname" class="form-control"><br>
+<input type="text" name="materialname" class="form-control" minlength="1" maxlength="50"><br>
 <input type="submit" value="Luo" class="button-1">
 <p>Materiaali:<br>
-<textarea name="material">
+<textarea name="material" minlength="1" maxlength="3000">
 </textarea>
 </form>
 
