@@ -17,7 +17,7 @@ def add_assignment(course_name, name, assignment, answer,
     sql0 = """SELECT id FROM courses WHERE name=:course_name"""
     result = db.session.execute(text(sql0),{"course_name":course_name}).fetchone()
 
-    if result==None:
+    if not result:
         return False
 
     sql = """INSERT INTO assignments (course_id, name, assignment,
@@ -36,7 +36,7 @@ def add_material(course_name, name, material):
     sql0 = """SELECT id FROM courses WHERE name=:course_name"""
     result = db.session.execute(text(sql0),{"course_name":course_name}).fetchone()
 
-    if result==None:
+    if not result:
         return False
 
     sql = """INSERT INTO materials (course_id, name, material)
@@ -58,7 +58,7 @@ def change_course(oldname, newname):
 def add_course(name):
     sql1 = """SELECT name FROM courses WHERE name=:name"""
     result = db.session.execute(text(sql1),{"name":name}).fetchone()
-    if result==None or result[0]!=name:
+    if not result or result[0]!=name:
         sql2 = """INSERT INTO courses (name) 
         VALUES (:name)"""
         db.session.execute(text(sql2),{"name":name})
@@ -87,7 +87,7 @@ def join_course(user_id, course_id):
     sql1 = """SELECT user_id, course_id FROM participants
     WHERE user_id=:user_id and course_id=:course_id"""
     result = db.session.execute(text(sql1),{"user_id":user_id, "course_id":course_id}).fetchone()
-    if result==None or result[0]!=int(user_id) and result[1]!=int(course_id):
+    if not result or result[0]!=int(user_id) and result[1]!=int(course_id):
         sql2 = """INSERT INTO participants (user_id, course_id) 
         VALUES (:user_id, :course_id)"""
         db.session.execute(text(sql2),{"user_id":user_id, "course_id":course_id})
@@ -135,7 +135,7 @@ def store_answer(user_id, assignment_id, correct_answer):
     WHERE user_id=:user_id and assignment_id=:assignment_id"""
     result2 = db.session.execute(text(sql2),{"user_id":user_id,"assignment_id":assignment_id}).fetchone()
 
-    if result2==None or result2[0]!=int(user_id) and result2[1]!=int(assignment_id):
+    if not result2 or result2[0]!=int(user_id) and result2[1]!=int(assignment_id):
         if result[0]==correct_answer:
             sql3 = """INSERT INTO answers (user_id, assignment_id, answer) 
             VALUES (:user_id, :assignment_id, :answer)"""
