@@ -24,6 +24,7 @@
 <h4>Anna vastaus:</h4>
 <input type="text" name="answer" class="form-control" minlength="1" maxlength="50">
 <input type="submit" value="Vastaa" class="button-1">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endif %}
@@ -40,6 +41,7 @@
 </select>
 <p>
 <input type="submit" value="Vastaa" class="button-1">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endif %}

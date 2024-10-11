@@ -1,7 +1,8 @@
 from db import db
-from flask import session, abort
+from flask import session, abort, request
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
+import secrets
 
 def login(name, password):
     sql = "SELECT id, name, password, role FROM users WHERE name=:name"
@@ -16,6 +17,7 @@ def login(name, password):
     session["user_id"] = user[0]
     session["user_name"] = user[1]
     session["user_role"] = user[3]
+    session["csrf_token"] = secrets.token_hex(16)
 
     return True
 
@@ -40,4 +42,8 @@ def user_id():
 
 def require_role(role):
     if role != session.get("user_role", 0):
+        abort(403)
+
+def check_csrf():
+    if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)

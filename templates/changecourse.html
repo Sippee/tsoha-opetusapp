@@ -7,10 +7,11 @@
 
 <form action="/changecourse" method="post">
 <p>Kurssin vanha nimi:
-<input type="text" name="oldname" class="form-control" minlength="1" maxlength="50">
+<input type="text" name="oldname" class="form-control" minlength="2" maxlength="50">
 <p>Kurssin uusi nimi:
-<input type="text" name="newname" class="form-control" minlength="1" maxlength="50">
+<input type="text" name="newname" class="form-control" minlength="2" maxlength="50">
 <input type="submit" value="Vaihda" class="button-1">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endblock %}

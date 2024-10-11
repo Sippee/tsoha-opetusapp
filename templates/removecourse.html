@@ -7,8 +7,9 @@
 
 Anna poistettavan kurssin nimi:
 <form action="/removecourse" method="post">
-<input type="text" name="name" class="form-control" minlength="1" maxlength="50">
+<input type="text" name="name" class="form-control" minlength="2" maxlength="50">
 <input type="submit" value="Poista" class="button-1">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% endblock %}

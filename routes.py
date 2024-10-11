@@ -26,6 +26,7 @@ def addassignment():
         return render_template("addassignment.html")
 
     if request.method == "POST":
+        users.check_csrf()
         coursename = request.form["coursename"]
         name = request.form["name"]
         assignment = request.form["assignment"]
@@ -50,6 +51,7 @@ def addmaterial():
         return render_template("addmaterial.html")
 
     if request.method == "POST":
+        users.check_csrf()
         coursename = request.form["coursename"]
         materialname = request.form["materialname"]
         material = request.form["material"]
@@ -67,6 +69,7 @@ def changecourse():
         return render_template("changecourse.html")
 
     if request.method == "POST":
+        users.check_csrf()
         oldname = request.form["oldname"]
         newname = request.form["newname"]
         courses.change_course(oldname, newname)
@@ -80,6 +83,7 @@ def addcourse():
         return render_template("addcourse.html")
 
     if request.method == "POST":
+        users.check_csrf()
         name = request.form["name"]
         courses.add_course(name)
         return redirect("/courses")
@@ -92,6 +96,7 @@ def removecourse():
         return render_template("removecourse.html")
 
     if request.method == "POST":
+        users.check_csrf()
         name = request.form["name"]
         courses.remove_course(name)
         return redirect("/courses")
@@ -99,6 +104,7 @@ def removecourse():
 @app.route("/answer", methods=["POST"])
 def answer():
     if request.method == "POST":
+        users.check_csrf()
         user_id = users.user_id()
         assignment_id = request.form["assignment_id"]
         correct_answer = request.form["answer"]
@@ -143,6 +149,7 @@ def show_assignment(assignment_id):
 @app.route("/join", methods=["POST"])
 def joincourse():
     if request.method == "POST":
+        users.check_csrf()
         user_id = users.user_id()
         course_id = request.form["course_id"]
         try:
