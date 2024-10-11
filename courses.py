@@ -14,6 +14,12 @@ def get_participants(course_id):
 
 def add_assignment(course_name, name, assignment, answer, 
                    multichoice, option1, option2, option3):
+    sql0 = """SELECT id FROM courses WHERE name=:course_name"""
+    result = db.session.execute(text(sql0),{"course_name":course_name}).fetchone()
+
+    if result==None:
+        return False
+
     sql = """INSERT INTO assignments (course_id, name, assignment,
     answer, multichoice, option1, option2, option3) VALUES
     ((SELECT id FROM courses WHERE name=:course_name),
@@ -27,6 +33,12 @@ def add_assignment(course_name, name, assignment, answer,
     db.session.commit()
 
 def add_material(course_name, name, material):
+    sql0 = """SELECT id FROM courses WHERE name=:course_name"""
+    result = db.session.execute(text(sql0),{"course_name":course_name}).fetchone()
+
+    if result==None:
+        return False
+
     sql = """INSERT INTO materials (course_id, name, material)
     VALUES ((SELECT id FROM courses WHERE name=:course_name), :name, :material)"""
     db.session.execute(text(sql),{"course_name":course_name, "name":name, "material":material})

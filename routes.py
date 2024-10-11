@@ -35,13 +35,13 @@ def addassignment():
         option1 = request.form["option1"]
         option2 = request.form["option2"]
         option3 = request.form["option3"]
-        try:
-            courses.add_assignment(coursename, name, assignment,
-                                    answer, multichoice,
-                                    option1, option2, option3)
-            return redirect("/courses")
-        except:
-            return redirect("/courses")
+        #try:
+        courses.add_assignment(coursename, name, assignment,
+                                answer, multichoice,
+                                option1, option2, option3)
+        return redirect("/courses")
+        #except:
+        #    return redirect("/courses")
 
 @app.route("/addmaterial", methods=["GET", "POST"])
 def addmaterial():
@@ -149,7 +149,6 @@ def show_assignment(assignment_id):
 @app.route("/join", methods=["POST"])
 def joincourse():
     if request.method == "POST":
-        users.check_csrf()
         user_id = users.user_id()
         course_id = request.form["course_id"]
         try:
